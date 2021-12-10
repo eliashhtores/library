@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author list</title>
+</head>
+
+<body>
+    <h1>Author list</h1>
+    <p>
+    <form method="get">
+        {% csrf_token %}
+        <input type="text" id="keyword" name="keyword" placeholder="Author name">
+        <button type="submit">Search</button>
+    </form>
+    </p>
+    <ul>
+        {% for author in authors %}
+        <li>{{ author }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
