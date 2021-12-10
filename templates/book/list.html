@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book list</title>
+</head>
+
+<body>
+    <h1>Book list</h1>
+    <p>
+    <form method="get">
+        {% csrf_token %}
+        <input type="text" id="keyword" name="keyword" placeholder="Book name">
+        <input type="date" name="start_date" id="start_date">
+        <input type="date" name="end_date" id="end_date">
+        <button type="submit">Search</button>
+    </form>
+    </p>
+    <ul>
+        {% for book in books %}
+        <li>{{ book }} - {{ book.release_date }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>

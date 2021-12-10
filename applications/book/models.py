@@ -1,5 +1,6 @@
 from django.db import models
 from applications.author.models import Author
+from .managers import BookManager
 
 
 class Category(models.Model):
@@ -19,6 +20,8 @@ class Book(models.Model):
     release_date = models.DateField()
     cover = models.ImageField(upload_to='covers/', null=True, blank=True)
     visits = models.PositiveIntegerField(default=0)
+
+    objects = BookManager()
 
     def __str__(self):
         return self.title

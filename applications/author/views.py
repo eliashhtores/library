@@ -8,4 +8,4 @@ class ListAuthors(ListView):
 
     def get_queryset(self):
         keyword = self.request.GET.get('keyword', '')
-        return Author.objects.search_young_author(keyword)
+        return Author.objects.search_old_authors(keyword)

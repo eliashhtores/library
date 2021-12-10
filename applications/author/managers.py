@@ -3,11 +3,11 @@ from django.db.models import Q
 
 
 class AuthorManager(models.Manager):
-    def search_author(self, author):
+    def search_authors(self, author):
         return self.filter(Q(first_name__icontains=author) | Q(last_name__icontains=author))
 
-    def search_young_author(self, author):
-        return self.filter(Q(first_name__icontains=author) | Q(last_name__icontains=author)).exclude(age__gte=40)
+    def search_old_authors(self, author):
+        return self.filter(Q(first_name__icontains=author) | Q(last_name__icontains=author)).exclude(age__gte=20, age__lte=40).order_by('last_name', 'first_name')
 
     # def get_queryset(self):
     #     return super().get_queryset().filter(is_active=True)
