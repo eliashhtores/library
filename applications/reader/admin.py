@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Reader
+from .models import Reader, BookLoan
 
 
 class ReaderAdmin(admin.ModelAdmin):
@@ -9,3 +9,11 @@ class ReaderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Reader, ReaderAdmin)
+
+
+class BookLoanAdmin(admin.ModelAdmin):
+    list_display = ('reader', 'book')
+    ordering = ('reader', 'book')
+
+
+admin.site.register(BookLoan, BookLoanAdmin)
