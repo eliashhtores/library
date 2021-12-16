@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.db import models
-from applications.author.models import Author
-from django.db.models import Q
+# from applications.author.models import Author
+from django.db.models import Count
 
 
 class BookManager(models.Manager):
@@ -16,6 +16,15 @@ class BookManager(models.Manager):
         book.authors.add(author_id)
         return book
 
+    def book_loans_count(self):
+        return self.aggregate(loans=Count('loan_book'))
+
+    def book_loans(self):
+        results = self.annotate(loans=Count('loan_book'))
+        for result in results:
+            print(result, result.loans)
+        # return results
+
 
 class CategoryManager(models.Manager):
     def search_category(self, name):
@@ -23,3 +32,9 @@ class CategoryManager(models.Manager):
 
     def categories_by_author(self, author):
         return self.filter(book_category__authors__id=author).distinct().order_by('name')
+
+    def list_category_book(self):
+        results = self.annotate(book_count=Count('book_category'))
+        # for result in results:
+        #     print(result, result.book_count)
+        return results

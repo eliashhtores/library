@@ -12,8 +12,8 @@ admin.site.register(Reader, ReaderAdmin)
 
 
 class BookLoanAdmin(admin.ModelAdmin):
-    list_display = ('reader', 'book')
-    ordering = ('reader', 'book')
+    list_display = ('book', 'reader', 'return_date', 'returned')
+    ordering = ('book', 'reader')
 
 
 admin.site.register(BookLoan, BookLoanAdmin)
