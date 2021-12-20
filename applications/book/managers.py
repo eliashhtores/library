@@ -1,15 +1,16 @@
 from datetime import datetime
 from django.db import models
-# from applications.author.models import Author
 from django.db.models import Count
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models.functions import Lower
 
 
 class BookManager(models.Manager):
     def search_books(self, title):
-        return self.filter(title__icontains=title).order_by('title')
+        return self.filter(title__trigram_similar=title).order_by('title')
 
     def search_books_by_date(self, title, start_date, end_date):
-        return self.filter(title__icontains=title, release_date__range=(datetime.strptime(start_date, '%Y-%m-%d').date(), datetime.strptime(end_date, '%Y-%m-%d').date())).order_by('release_date')
+        return self.filter(title__trigram_similar=title, release_date__range=(datetime.strptime(start_date, '%Y-%m-%d').date(), datetime.strptime(end_date, '%Y-%m-%d').date())).order_by('release_date')
 
     def add_author_book(self, author_id, book_id):
         book = self.get(pk=book_id)

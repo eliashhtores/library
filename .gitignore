@@ -8,3 +8,5 @@ applications/reader/__pycache__/
 applications/reader/migrations/__pycache__/
 applications/author/__pycache__/
 applications/author/migrations/__pycache__/
+applications/home/__pycache__/
+applications/home/migrations/__pycache__/
