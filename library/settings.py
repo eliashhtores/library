@@ -9,18 +9,30 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+from django.core.exceptions import ImproperlyConfigured
+import json
 from unipath import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).ancestor(2)
 
+with open('secret.json') as fp:
+    secret = json.loads(fp.read())
+
+
+def get_secret(secret_name, secrets=secret):
+    try:
+        return secrets[secret_name]
+    except:
+        msg = f'secret.json does not exist or variable {secret_name} does not exist.'
+        raise ImproperlyConfigured(msg)
+
+
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g2ycg98e+nc4tn^$_n0!+l#05a*4p3(6bez#a04!d$yafpcf^s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,11 +94,11 @@ WSGI_APPLICATION = 'library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'library',
-        'USER': 'emp_app',
-        'PASSWORD': 'hosqkx91',
+        'NAME': get_secret('DB_NAME'),
+        'USER': get_secret('DB_USER'),
+        'PASSWORD': get_secret('DB_PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': get_secret('DB_PORT'),
     }
 }
 
@@ -127,6 +139,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_DIR = [BASE_DIR.child('static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.child('media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -11,3 +11,4 @@ applications/author/migrations/__pycache__/
 applications/home/__pycache__/
 applications/home/migrations/__pycache__/
 covers/
+secret.json
