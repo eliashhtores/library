@@ -10,5 +10,7 @@ applications/author/__pycache__/
 applications/author/migrations/__pycache__/
 applications/home/__pycache__/
 applications/home/migrations/__pycache__/
+applications/users/__pycache__/
+applications/users/migrations/__pycache__/
 covers/
 secret.json

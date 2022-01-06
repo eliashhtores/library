@@ -21,4 +21,6 @@ urlpatterns = [
     re_path('', include('applications.author.urls')),
     re_path('', include('applications.book.urls')),
     re_path('', include('applications.reader.urls')),
+    re_path('', include('applications.users.urls')),
+    re_path('', include('applications.home.urls')),
 ]
