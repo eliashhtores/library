@@ -13,4 +13,4 @@ applications/home/migrations/__pycache__/
 applications/users/__pycache__/
 applications/users/migrations/__pycache__/
 covers/
-secret.json
+.env

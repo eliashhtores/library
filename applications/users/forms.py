@@ -5,70 +5,65 @@ from .models import User
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(
-        label='Password',
+        label="Password",
         required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
     )
 
     repassword = forms.CharField(
-        label='Repeat password',
+        label="Repeat password",
         required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
     )
 
     def clean_password(self):
-        print(self.cleaned_data)
-
-        if len(self.cleaned_data['password']) < 5:
+        if len(self.cleaned_data["password"]) < 5:
             self.add_error(
-                'password', 'Password length must be greater than 5 characters')
+                "password", "Password length must be greater than 5 characters"
+            )
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'gender')
+        fields = ("username", "email", "first_name", "last_name", "gender")
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        label='Username',
+        label="Username",
         required=True,
-        widget=forms.TextInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.TextInput(attrs={"class": "form-control"}),
     )
     password = forms.CharField(
-        label='Password',
+        label="Password",
         required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
     )
 
     def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
+        username = self.cleaned_data["username"]
+        password = self.cleaned_data["password"]
         if not authenticate(username=username, password=password):
-            raise forms.ValidationError('Username or password is incorrect')
+            raise forms.ValidationError("Username or password is incorrect")
         return self.cleaned_data
 
 
 class UpdatePasswordForm(forms.Form):
     password = forms.CharField(
-        label='Current password',
+        label="Current password",
         required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
     )
 
     new_password = forms.CharField(
-        label='New password',
+        label="New password",
         required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+    )
+
+
+class EmailVerificationForm(forms.Form):
+    code = forms.CharField(
+        label="Verification code",
+        required=True,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
     )
