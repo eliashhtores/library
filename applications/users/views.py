@@ -37,7 +37,7 @@ class UserRegisterView(FormView):
         sender = "eliashhtorres@gmail.com"
         send_mail(subject, message, sender, [form.cleaned_data["email"]])
 
-        return redirect(reverse("users_app:verify", kwargs={"pk": 75}))
+        return redirect(reverse("users_app:verify", kwargs={"pk": user.id}))
 
 
 class LoginView(FormView):
