@@ -13,5 +13,5 @@ urlpatterns = [
         views.UpdatePasswordView.as_view(),
         name="update_password",
     ),
-    path("users/verify", views.CodeVerificationView.as_view(), name="verify"),
+    path("users/verify/<pk>/", views.CodeVerificationView.as_view(), name="verify"),
 ]

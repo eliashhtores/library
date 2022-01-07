@@ -75,3 +75,18 @@ class EmailVerificationForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={"class": "form-control"}),
     )
+
+    def __init__(self, pk, *args, **kwargs):
+        self.id = pk
+        super(EmailVerificationForm, self).__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get("code")
+
+        if len(code) != 6:
+            raise forms.ValidationError("Verification code length is incorrect")
+
+        if not User.objects.code_validation(self.id, code):
+            raise forms.ValidationError("Verification code is incorrect")
+
+        return code

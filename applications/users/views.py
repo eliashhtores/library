@@ -22,7 +22,7 @@ class UserRegisterView(FormView):
 
     def form_valid(self, form):
         register_code = code_generator()
-        User.objects.create_user(
+        user = User.objects.create_user(
             form.cleaned_data["username"],
             form.cleaned_data["email"],
             form.cleaned_data["password"],
@@ -37,7 +37,7 @@ class UserRegisterView(FormView):
         sender = "eliashhtorres@gmail.com"
         send_mail(subject, message, sender, [form.cleaned_data["email"]])
 
-        return redirect(reverse("users_app:verify"))
+        return redirect(reverse("users_app:verify", kwargs={"pk": 75}))
 
 
 class LoginView(FormView):
@@ -85,6 +85,11 @@ class CodeVerificationView(FormView):
     form_class = EmailVerificationForm
     success_url = reverse_lazy("users_app:login")
 
-    def form_valid(self, form):
+    def get_form_kwargs(self):
+        kwargs = super(CodeVerificationView, self).get_form_kwargs()
+        kwargs.update({"pk": self.kwargs["pk"]})
+        return kwargs
 
+    def form_valid(self, form):
+        User.objects.filter(id=self.kwargs["pk"]).update(is_active=True)
         return super(CodeVerificationView, self).form_valid(form)

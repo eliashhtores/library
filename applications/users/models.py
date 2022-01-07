@@ -7,13 +7,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (("M", "Male"), ("F", "Female"))
 
     username = models.CharField(max_length=10, unique=True)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     gender = models.CharField(max_length=1, choices=(GENDER_CHOICES), blank=True)
     register_code = models.CharField(max_length=6, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
