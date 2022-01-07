@@ -21,7 +21,6 @@ class UserRegisterView(FormView):
     success_url = "/"
 
     def form_valid(self, form):
-        # if form.cleaned_data["password"] == form.cleaned_data["repassword"]:
         register_code = code_generator()
         User.objects.create_user(
             form.cleaned_data["username"],
@@ -39,9 +38,6 @@ class UserRegisterView(FormView):
         send_mail(subject, message, sender, [form.cleaned_data["email"]])
 
         return redirect(reverse("users_app:verify"))
-
-    # form.add_error("repassword", "Password and repeat password are not the same")
-    # return self.form_invalid(form)
 
 
 class LoginView(FormView):

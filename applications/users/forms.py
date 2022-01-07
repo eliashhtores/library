@@ -16,10 +16,18 @@ class UserRegisterForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={"class": "form-control"}),
     )
 
-    def clean_password(self):
-        if len(self.cleaned_data["password"]) < 5:
+    def clean_repassword(self):
+        password = self.cleaned_data.get("password")
+        repassword = self.cleaned_data.get("repassword")
+        if len(password) < 5:
             self.add_error(
                 "password", "Password length must be greater than 5 characters"
+            )
+            return
+
+        if password != repassword:
+            self.add_error(
+                "repassword", "Password and repeat password are not the same"
             )
 
     class Meta:
@@ -40,8 +48,8 @@ class LoginForm(forms.Form):
     )
 
     def clean(self):
-        username = self.cleaned_data["username"]
-        password = self.cleaned_data["password"]
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
         if not authenticate(username=username, password=password):
             raise forms.ValidationError("Username or password is incorrect")
         return self.cleaned_data
