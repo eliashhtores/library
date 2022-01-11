@@ -1,16 +1,3 @@
-library/__pycache__/
-library/__pycache__/
-library/local.py
-applications/__pycache__/
-applications/book/__pycache__/
-applications/book/migrations/__pycache__/
-applications/reader/__pycache__/
-applications/reader/migrations/__pycache__/
-applications/author/__pycache__/
-applications/author/migrations/__pycache__/
-applications/home/__pycache__/
-applications/home/migrations/__pycache__/
-applications/users/__pycache__/
-applications/users/migrations/__pycache__/
+__pycache__/
 covers/
 .env
